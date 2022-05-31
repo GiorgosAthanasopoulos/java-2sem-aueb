@@ -73,4 +73,12 @@ public class Order extends Transaction {
                 productType.equals("component") ? Component.getDiscount() : Peripheral.getDiscount(),
                 originalPrice - price, price, deliveryDate, deliveryStatus);
     }
+
+    /**
+     * @return string representation of serialized class
+     */
+    @Override
+    public String serialized() {
+        return String.format("\tORDER\n\t{\n\t\tCODE %d\n\t\tITEM_TYPE %s\n\t\tMODEL %s\n\t\tNAME %s\n\t\tNUMBER %s\n\t\tDATE %s\n\t\tPRICE %f\n\t\tDELIVERY_DATE %s", code, product.getClass().getName().toLowerCase(), product.preview(), name, number, date, price, deliveryDate);
+    }
 }

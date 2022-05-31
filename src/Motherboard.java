@@ -54,4 +54,12 @@ public class Motherboard extends Component {
     public String toString() {
         return String.format("Motherboard {\n\tCode: %d\n\tModel: %s\n\tRelease year: %d\n\tManufacturer: %s\n\tPrice: %f\n\tSocket: %s\n\tMemory: %d GB\n\tSata port count: %d\n\t}", code, model, releaseYear, manufacturer, price, socket, memory, sataCount);
     }
+
+    /**
+     * @return string representation of serialized class
+     */
+    @Override
+    public String serialized() {
+        return String.format("\tITEM\n\t{\n\t\tITEM_TYPE %s\n\t\tMODEL %s\n\t\tMODEL_YEAR %d\n\t\tMANUFACTURER %s\n\t\tPRICE %f\n\t\tSOCKET %s\n\t\tMEMORY %d\n\t\tSATA_COUNT %d", this.getClass().getName().toLowerCase(), model, releaseYear, manufacturer, price, socket, memory, sataCount);
+    }
 }

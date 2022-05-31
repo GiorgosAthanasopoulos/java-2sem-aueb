@@ -49,4 +49,9 @@ public class Mouse extends Peripheral {
    public String toString() {
        return String.format("Mouse {\n\tCode: %d\n\tModel: %s\n\tRelease year: %d\n\tManufacturer: %s\n\tPrice: %f\n\tConnection: %s\n\tSensor: %s\n\t}", code, model, releaseYear, manufacturer, price, connection, sensor);
    }
+
+   @Override
+    public String serialized() {
+       return String.format("\tITEM\n\t{\n\t\tITEM_TYPE %s\n\t\tMODEL %s\n\t\tMODEL_YEAR %d\n\t\tMANUFACTURER %s\n\t\tPRICE %f\n\t\tCONNECTION %s\n\t\tSENSOR %s", this.getClass().getName().toLowerCase(), model, releaseYear, manufacturer, price, connection, sensor);
+   }
 }

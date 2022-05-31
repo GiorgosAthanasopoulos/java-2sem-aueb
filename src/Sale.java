@@ -33,4 +33,12 @@ public class Sale extends Transaction {
     public String toString() {
         return String.format("Sale {\n\tCode: %d\n\tType: %s\n\tProduct: %s\n\tName: %s\n\tNumber: %s\n\tPrice: original-%f, discountPercentage-%d, discount-%f, final-%f\n}", code, TransactionType.SALE, product, name, number, originalPrice, productType.equals("component") ? Component.getDiscount() : Peripheral.getDiscount(), originalPrice - price, price);
     }
+
+    /**
+     * @return string representation of serialized class
+     */
+    @Override
+    public String serialized() {
+        return String.format("\tSALE\n\t{\n\t\tCODE %d\n\t\tITEM_TYPE %s\n\t\tMODEL %s\n\t\tNAME %s\n\t\tNUMBER %s\n\t\tSALE_DATE %s\n\t\tPRICE %f", code, product.getClass().getName().toLowerCase(), product.preview(), name, number, date, price);
+    }
 }
