@@ -2,7 +2,6 @@ SALES_LIST
 {
     SALE
     {
-        CODE 0
         ITEM_TYPE motherboard
         MODEL 2
         NAME george athans

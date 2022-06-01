@@ -39,6 +39,6 @@ public class Sale extends Transaction {
      */
     @Override
     public String serialized() {
-        return String.format("\tSALE\n\t{\n\t\tCODE %d\n\t\tITEM_TYPE %s\n\t\tMODEL %s\n\t\tNAME %s\n\t\tNUMBER %s\n\t\tSALE_DATE %s\n\t\tPRICE %f", code, product.getClass().getName().toLowerCase(), product.preview(), name, number, date, price);
+        return String.format("\tSALE\n\t{\n\t\tITEM_TYPE %s\n\t\tMODEL %s\n\t\tNAME %s\n\t\tNUMBER %s\n\t\tSALE_DATE %s\n\t\tPRICE %f", product.getClass().getName().toLowerCase(), product.preview(), name, number, date, price);
     }
 }

@@ -2,8 +2,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * A class that will write the catalogues from the memory to the filesystem
+ */
 public class Writer {
-    public static void writeCatalogues(List<Catalogue> catalogues) {
+    /**
+    * A method that will write the catalogues from the memory to the filesystem
+    */
+     public static void writeCatalogues(List<Catalogue> catalogues) {
         FileWriter fw;
         try {
             for(Catalogue catalogue : catalogues) {
