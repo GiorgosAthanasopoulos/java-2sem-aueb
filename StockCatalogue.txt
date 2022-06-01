@@ -1,0 +1,213 @@
+ITEM_LIST
+{
+    ITEM
+    {
+        ITEM_TYPE motherboard
+        MODEL 1
+        MODEL_YEAR 2000
+        MANUFACTURER msi
+        PRICE 100
+        SOCKET AMD
+        MEMORY 32
+        SATA_COUNT 4
+        PIECES 0
+    }
+    ITEM
+    {
+        ITEM_TYPE motherboard
+        MODEL 2
+        MODEL_YEAR 2001
+        MANUFACTURER asrock
+        PRICE 200
+        SOCKET INTEL
+        MEMORY 64
+        SATA_COUNT 6
+        PIECES 1
+    }
+    ITEM
+    {
+        ITEM_TYPE ram
+        MODEL 3
+        MODEL_YEAR 2002
+        MANUFACTURER patriot
+        PRICE 50
+        DDR DDR3
+        SIZE 4
+        FREQUENCY 1600
+        PIECES 1
+    }
+    ITEM
+    {
+        ITEM_TYPE ram
+        MODEL 4
+        MODEL_YEAR 2003
+        MANUFACTURER corsair
+        PRICE 100
+        DDR DDR4
+        SIZE 8
+        FREQUENCY 2666
+        PIECES 0
+    }
+    ITEM
+    {
+        ITEM_TYPE cpu
+        MODEL 5
+        MODEL_YEAR 2004
+        MANUFACTURER amd
+        PRICE 150
+        CLOCK 2.8
+        CORES 6
+        ONBOARD_GRAPHICS yes
+        PIECES 0
+    }
+    ITEM
+    {
+        ITEM_TYPE cpu
+        MODEL 6
+        MODEL_YEAR 2005
+        MANUFACTURER intel
+        PRICE 250
+        CLOCK 3.3
+        CORES 8
+        ONBOARD_GRAPHICS no
+        PIECES 1
+    }
+    ITEM
+    {
+        ITEM_TYPE gpu
+        MODEL 7
+        MODEL_YEAR 2006
+        MANUFACTURER nvidia
+        PRICE 350
+        CHIPSET nvidia
+        MEMORY 6
+        PIECES 1
+    }
+    ITEM
+    {
+        ITEM_TYPE gpu
+        MODEL 8
+        MODEL_YEAR 2007
+        MANUFACTURER amd
+        PRICE 700
+        CHIPSET amd
+        MEMORY 8
+        PIECES 0
+    }
+    ITEM
+    {
+        ITEM_TYPE hd
+        MODEL 9
+        MODEL_YEAR 2008
+        MANUFACTURER western digital
+        PRICE 30
+        STORAGE_TYPE hdd
+        SIZE 1.8
+        CAPACITY 256
+        PIECES 0
+    }
+    ITEM
+    {
+        ITEM_TYPE hd
+        MODEL 10
+        MODEL_YEAR 2009
+        MANUFACTURER kingston
+        PRICE 80
+        STORAGE_TYPE ssd
+        SIZE 2.5
+        CAPACITY 1
+        PIECES 1
+    }
+    ITEM
+    {
+        ITEM_TYPE monitor
+        MODEL 11
+        MODEL_YEAR 2010
+        MANUFACTURER aoc
+        PRICE 250
+        MONITOR_TYPE monitor
+        SIZE 24
+        RESOLUTION 1920x1080
+        PORTS hdmi dp
+        BACKLIGHT led
+        PIECES 1
+    }
+    ITEM
+    {
+        ITEM_TYPE monitor
+        MODEL 12
+        MODEL_YEAR 2011
+        MANUFACTURER turbox
+        PRICE 350
+        MONITOR_TYPE tv
+        SIZE 27
+        RESOLUTION 2560x1440
+        PORTS usbc hdmi
+        BACKLIGHT lcd
+        PIECES 0
+    }
+    ITEM
+    {
+        ITEM_TYPE mouse
+        MODEL 23
+        MODEL_YEAR 2012
+        MANUFACTURER logitech
+        PRICE 75
+        SENSOR optical
+        CONNECTION wired
+        PIECES 0
+    }
+    ITEM
+    {
+        ITEM_TYPE mouse
+        MODEL 24
+        MODEL_YEAR 2013
+        MANUFACTURER razer
+        PRICE 150
+        SENSOR laser
+        CONNECTION wireless
+        PIECES 1
+    }
+    ITEM
+    {
+        ITEM_TYPE keyboard
+        MODEL 15
+        MODEL_YEAR 2014
+        MANUFACTURER hyperx
+        PRICE 200
+        CONNECTION wired
+        PIECES 1
+    }
+    ITEM
+    {
+        ITEM_TYPE keyboard
+        MODEL 16
+        MODEL_YEAR 2015
+        MANUFACTURER epomaker
+        PRICE 250
+        CONNECTION wireless
+        PIECES 0
+    }
+    ITEM
+    {
+        ITEM_TYPE printer
+        MODEL 17
+        MODEL_YEAR 2016
+        MANUFACTURER hp
+        PRICE 500
+        PRINTER_TYPE inkjet
+        COLORS blacknwhite
+        PIECES 0
+    }
+    ITEM
+    {
+        ITEM_TYPE printer
+        MODEL 18
+        MODEL_YEAR 2017
+        MANUFACTURER epson
+        PRICE 1000
+        PRINTER_TYPE laser
+        COLORS colored
+        PIECES 1
+    }
+}

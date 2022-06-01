@@ -48,9 +48,7 @@ public class Cli {
                 case 3 -> {
                     break logicLoop;
                 }
-                case 4 -> {
-                    saveCatalogues(stockCatalogue, ordersCatalogue, salesCatalogue);
-                }
+                case 4 -> saveCatalogues(stockCatalogue, ordersCatalogue, salesCatalogue);
                 default -> System.out.println("Invalid command.\n");
             }
 
@@ -85,9 +83,9 @@ public class Cli {
                     "Invalid category(must be 0 for component, 1 for peripheral or 2 to go back)!", "0,1,2");
 
             if (category.equals("2"))
-                break category_;
+                break;
 
-            type_: while (true) {
+            while (true) {
                 String types = category.equals("0") ? "0. motherboard, 1. cpu, 2. ram, 3. gpu, 4. hd, 5. go back"
                         : "0. monitor, 1. keyboard, 2. mouse, 3.printer, 4. go back";
                 String type = Utils.checkInput("",
@@ -96,9 +94,9 @@ public class Cli {
                         category.equals("0") ? "0,1,2,3,4,5" : "0,1,2,3,4");
 
                 if (type.equals(category.equals("0") ? "5" : "4"))
-                    break type_;
+                    break;
 
-                product_: while (true) {
+                while (true) {
                     Map<Product, Integer> products = stockCatalogue
                             .filter(category.equals("0") ? Integer.parseInt(type) : 5 + Integer.parseInt(type));
                     StringBuilder chk = new StringBuilder();
@@ -120,34 +118,33 @@ public class Cli {
                     int product = Integer.parseInt(
                             Utils.checkInput("", "Enter index(0-" + index + ", or 100 to go back): ",
                                     "Invalid index(0-" + index + ", or 100 to go back)!",
-                                    chk.toString() + ",100"));
+                                    chk + ",100"));
 
                     if (product == 100)
-                        break product_;
+                        break;
 
                     Product selected = (Product) products.keySet().toArray()[product];
 
                     // print selected product characteristics
                     System.out.println(selected + "\n");
 
-                    choice_: while (true) {
+                    while (true) {
                         String choice = Utils.checkInput("",
                                 "Do you want to buy this product(0. yes, 1. no, 2. go back)? ",
                                 "Invalid choice(0. yes, 1. no, 2. go back)!", "0,1,2");
 
                         if (choice.equals("2"))
-                            break choice_;
+                            break;
 
                         if (choice.equals("1"))
                             break category_;
 
                         if (choice.equals("0")) {
-                            @SuppressWarnings("resource")
                             Scanner sc = new Scanner(System.in);
                             String choice1 = null;
 
                             // get sale-order info
-                            choice1_: while (true) {
+                            while (true) {
                                 if (!(products.get(selected) >= 1)) {
                                     choice1 = Utils.checkInput("",
                                             "This product is out or stock.Do you want to order it(0. yes, 1. no, 2. go back)? ",
@@ -156,7 +153,7 @@ public class Cli {
                                     if (Objects.equals(choice1, "1"))
                                         break category_;
                                     if (choice1.equals("2"))
-                                        break choice1_;
+                                        break;
                                 }
 
                                 System.out.println("Enter your name: ");
@@ -227,20 +224,20 @@ public class Cli {
             int choice = Integer.parseInt(
                     Utils.checkInput("", "Enter index(0-" + index + ", or 100 to go back): ",
                             "Invalid index(0-" + index + " or 100 to go back)!",
-                            chk.toString() + ",100"));
+                            chk + ",100"));
 
             if (choice == 100)
-                break choice_;
+                break;
 
             // print selected order characteristics
             System.out.println("\n" + orderCatalogueLocal.get(choice) + "\n");
 
-            deliver_: while (true) {
+            while (true) {
                 String deliver = Utils.checkInput("", "Do you want to deliver this order(0. yes, 1. no, 2. go back)? ",
                         "Invalid choice(0. yes, 1. no, 2. go back)!", "0,1,2");
 
                 if (deliver.equals("2"))
-                    break deliver_;
+                    break;
                 if (deliver.equals("1"))
                     break choice_;
 

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A child of the catalogue inteface
+ * A child of the catalogue interface
  * A class that manages sales
  */
 public class SalesCatalogue implements Catalogue {

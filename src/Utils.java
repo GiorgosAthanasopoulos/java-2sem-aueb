@@ -18,7 +18,6 @@ public class Utils {
     public static String checkInput(String initial, String msg, String errMsg, String range) {
         System.out.println(initial + msg);
         String input;
-        @SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
         try {
             input = sc.next();
@@ -68,7 +67,6 @@ public class Utils {
      * @return the string representation of the date
      */
     public static String checkDate(String msg, String errMsg) {
-        @SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
 
         System.out.println(msg);

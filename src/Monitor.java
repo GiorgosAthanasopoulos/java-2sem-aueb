@@ -72,7 +72,7 @@ public class Monitor extends Peripheral {
      */
     private final Port[] ports;
     /**
-     * What blacklighting technology the monitor uses
+     * What backlight technology the monitor uses
      */
     private final Backlight backlight;
 

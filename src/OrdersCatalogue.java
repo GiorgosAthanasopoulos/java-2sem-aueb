@@ -31,6 +31,7 @@ public class OrdersCatalogue implements Catalogue {
      * Action: removes an order from the catalogue based on its code (unique)
      * @param code the code of the order to remove
      */
+    @SuppressWarnings("SuspiciousListRemoveInLoop")
     public void remove(int code) {
         for(int i=0; i<orderedProducts.size(); i++)
             if(orderedProducts.get(i).code == code)

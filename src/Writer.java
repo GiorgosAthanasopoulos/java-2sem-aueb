@@ -1,14 +1,14 @@
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
 public class Writer {
     public static void writeCatalogues(List<Catalogue> catalogues) {
-        FileWriter fw = null;
+        FileWriter fw;
         try {
             for(Catalogue catalogue : catalogues) {
-                fw = new FileWriter(new File(catalogue.getClass().getName() + ".json"));
+                System.out.println("Writing to file: " + catalogue.getClass().getName() + ".txt");
+                fw = new FileWriter(catalogue.getClass().getName() + ".txt");
                 fw.write(catalogue.serialized());
                 fw.flush();
                 fw.close();
