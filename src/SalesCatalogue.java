@@ -13,6 +13,17 @@ public class SalesCatalogue implements Catalogue {
     private List<Sale> soldProducts = new ArrayList<>();
 
     /**
+     * constructor
+     */
+    public SalesCatalogue(List<Sale> sales) {
+        soldProducts.addAll(sales);
+    }
+
+    public SalesCatalogue() {
+
+    }
+
+    /**
      * Action: adds a new sale to the catalogue
      * @param sale the sale to add
      */

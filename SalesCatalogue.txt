@@ -1,12 +1,4 @@
 SALES_LIST
 {
-    SALE
-    {
-        ITEM_TYPE motherboard
-        MODEL 2
-        NAME george athans
-        number +301234567890
-        SALE_DATE 31-05-2022
-        PRICE 190
-    }
+
 }

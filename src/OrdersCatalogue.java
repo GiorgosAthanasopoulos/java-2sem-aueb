@@ -13,6 +13,17 @@ public class OrdersCatalogue implements Catalogue {
     private List<Order> orderedProducts = new ArrayList<>();
 
     /**
+     * constructor
+     */
+    public OrdersCatalogue(List<Order> orders) {
+        orderedProducts.addAll(orders);
+    }
+
+    public OrdersCatalogue() {
+
+    }
+
+    /**
      * Action: adds a new order to the catalogue
      * @param order the order to add
      */
