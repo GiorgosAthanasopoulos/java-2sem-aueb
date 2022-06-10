@@ -19,8 +19,8 @@ public class Cli {
             stockCatalogue = (StockCatalogue) Reader.readCatalogue(StockCatalogue.class.getName());
             ordersCatalogue = (OrdersCatalogue) Reader.readCatalogue(OrdersCatalogue.class.getName());
             salesCatalogue = (SalesCatalogue) Reader.readCatalogue(SalesCatalogue.class.getName());
-        } catch (Exception ignored) {
-            System.out.println("An error occurred while reading the files!");
+        } catch (Exception e) {
+            System.out.println("An error occurred while reading the files!\n" + e);
             return;
         }
 
