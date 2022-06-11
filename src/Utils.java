@@ -25,7 +25,7 @@ public class Utils {
             input = null;
         }
 
-        while (!contains(range.split(","), input)) {
+        while (contains(range.split(","), input)) {
             System.out.print(errMsg + "\n" + msg);
             try {
                 input = sc.next();
@@ -48,7 +48,7 @@ public class Utils {
     public static boolean contains(String[] arr, String tar) {
         Arrays.sort(arr);
 
-        return Arrays.binarySearch(arr, tar) >= 0;
+        return Arrays.binarySearch(arr, tar) < 0;
     }
 
     /**

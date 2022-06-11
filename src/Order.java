@@ -79,6 +79,6 @@ public class Order extends Transaction {
      */
     @Override
     public String serialized() {
-        return String.format("\tORDER\n\t{\n\t\tITEM_TYPE %s\n\t\tMODEL %s\n\t\tNAME %s\n\t\tNUMBER %s\n\t\tDATE %s\n\t\tPRICE %f\n\t\tDELIVERY_DATE %s\n\t\tDELIVERY_STATUS %s", product.getClass().getName().toLowerCase(), product.preview(), name, number, date, price, deliveryDate, deliveryStatus);
+        return String.format("\tORDER\n\t{\n\t\tITEM_TYPE %s\n\t\tMODEL %s\n\t\tNAME %s\n\t\tNUMBER %s\n\t\tDATE %s\n\t\tPRICE %f\n\t\tDELIVERY_DATE %s\n\t\tDELIVERY_STATUS %s\n\t}\n", product.getClass().getName().toLowerCase(), product.preview(), name, number, date, price, deliveryDate, deliveryStatus);
     }
 }

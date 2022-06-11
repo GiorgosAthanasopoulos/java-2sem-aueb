@@ -28,11 +28,11 @@ public class Ram extends Component {
     /**
      * the memory capacity of the module
      */
-   private final int size;
+   private final double size;
     /**
      * the frequency of the memory
      */
-   private final int freq;
+   private final double freq;
 
     /**
      * Action: initializes all class attributes by calling super
@@ -45,7 +45,7 @@ public class Ram extends Component {
      * @param size the capacity of the ram module
      * @param freq the frequency of the ram module
      */
-  public Ram(String model, int releaseYear, String manufacturer, double price, Ddr type, int size, int freq) {
+  public Ram(String model, int releaseYear, String manufacturer, double price, Ddr type, Double size, Double freq) {
       super(model, releaseYear, manufacturer, price);
       this.type = type;
       this.size = size;
@@ -57,7 +57,7 @@ public class Ram extends Component {
      */
   @Override
   public String toString() {
-      return String.format("Ram {\n\tCode: %d\n\tModel: %s\n\tRelease year: %d\n\tManufacturer: %s\n\tPrice: %f\n\tDdr: %s\n\tSize: %d GB\n\tFrequency: %d MHz\n\t}", code, model, releaseYear, manufacturer, price, type, size, freq);
+      return String.format("Ram {\n\tCode: %d\n\tModel: %s\n\tRelease year: %d\n\tManufacturer: %s\n\tPrice: %f\n\tDdr: %s\n\tSize: %f GB\n\tFrequency: %f MHz\n\t}", code, model, releaseYear, manufacturer, price, type, size, freq);
   }
 
     /**
@@ -65,6 +65,6 @@ public class Ram extends Component {
      */
   @Override
   public String serialized() {
-      return String.format("\tITEM\n\t{\n\t\tITEM_TYPE %s\n\t\tMODEL %s\n\t\tMODEL_YEAR %d\n\t\tMANUFACTURER %s\n\t\tPRICE %f\n\t\tDDR %s\n\t\tSIZE %d\n\t\tFREQUENCY %d", this.getClass().getName().toLowerCase(), model, releaseYear, manufacturer, price, type, size, freq);
+      return String.format("\tITEM\n\t{\n\t\tITEM_TYPE %s\n\t\tMODEL %s\n\t\tMODEL_YEAR %d\n\t\tMANUFACTURER %s\n\t\tPRICE %f\n\t\tDDR %s\n\t\tSIZE %f\n\t\tFREQUENCY %f", this.getClass().getName().toLowerCase(), model, releaseYear, manufacturer, price, type, size, freq);
   }
 }

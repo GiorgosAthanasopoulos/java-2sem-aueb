@@ -33,7 +33,7 @@ public class Reader {
 		
 		// stock map that will be used to create stock catalogue generated from file
 		Map<Product, Integer> stock = new HashMap<>();
-		String input, value, context = null, key;
+		String input, value = "", context = null, key;
 	
 		// stacks to hold product characteristics
 		Stack[] stacks = new Stack[26];
@@ -45,16 +45,29 @@ public class Reader {
 			provided[i] = false;
 		}
 		
+		boolean needToRefreshProvide = false;
+		
 		// fill stacks
 		try {
 			Scanner sc = new Scanner(stockCatalogue);
 			
 			while(sc.hasNextLine()) {
 				key = sc.nextLine().trim().strip().stripIndent().stripLeading().stripTrailing();
-				if(key.equals("ITEM_LIST") || key.equals("ITEM") || key.equals("{") || key.equals("}") || key.equals(" ") || key.equals(""))
+				
+				if(key.equals("ITEM_LIST") || key.equals("ITEM") || key.equals(" ") || key.equals(""))
 					continue;
+				else if(key.equals("}")) {
+					needToRefreshProvide = true;
+					continue;
+				} else if(key.equals("{")) {
+					needToRefreshProvide = false;
+					continue;
+				}
+				
 				input = key.split(" ")[0];
-				value = key.split(" ")[1];
+				
+				for(int i=1; i<key.split(" ").length; i++)
+					value += key.split(" ")[i];
 				
 				if(input.equals("ITEM_TYPE")) {
 					context = value;
@@ -77,7 +90,7 @@ public class Reader {
 						stacks[0]	.push(Mouse.class);
 					else if(value.contains("printer"))
 						stacks[0]	.push(Printer.class);
-				} if(input.startsWith("MODEL")) {
+				} if(input.equals("MODEL")) {
 					provided[1] = true;
 					stacks[1].push(value);
 				} else if(input.equals("MODEL_YEAR")) {
@@ -252,37 +265,52 @@ public class Reader {
 						break;
 				}
 				
-				for(int i=0; i<26; i++)
-					provided[i] = false;
+				if(needToRefreshProvide)
+					for(int i=0; i<26; i++)
+						provided[i] = false;
+				
+				value = "";
 			}
 			
 			// generate products
 			for(int i=stacks[0].size()-1; i>=0; i--) {
 				String class_ = stacks[0].get(i).toString();
 				
-				if(class_.startsWith("Motherboard")) {
-					stock.put(new Motherboard((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(Socket) stacks[13].pop(),(Integer) stacks[14].pop(),(Integer) stacks[15].pop()), (Integer) stacks[5].pop());
-				} else if(class_.startsWith("Ram")) {
-					stock.put(new Ram((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(Ddr) stacks[9].pop(),(Integer) stacks[10].pop(),(Integer) stacks[11].pop()), (Integer) stacks[5].pop());
-				} else if(class_.startsWith("Cpu")) {
+				if(class_.endsWith("Motherboard")) {
+					stock.put(new Motherboard((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(Socket) stacks[14].pop(),(Integer) stacks[13].pop(),(Integer) stacks[15].pop()), (Integer) stacks[5].pop());
+				} else if(class_.endsWith("Ram")) {
+					stock.put(new Ram((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(Ddr) stacks[9].pop(),(Double) stacks[10].pop(),(Double) stacks[11].pop()), (Integer) stacks[5].pop());
+				} else if(class_.endsWith("Cpu")) {
 					stock.put(new Cpu((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(Double) stacks[6].pop(),(Integer) stacks[7].pop(),(Boolean) stacks[8].pop()), (Integer) stacks[5].pop());
-				} else if(class_.startsWith("Hd")) {
+				} else if(class_.endsWith("Hd")) {
 					stock.put(new Hd((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(StorageType) stacks[16].pop(),(Double) stacks[10].pop(),(Integer) stacks[17].pop()), (Integer) stacks[5].pop());
-				} else if(class_.startsWith("Gpu")) {
+				} else if(class_.endsWith("Gpu")) {
 					stock.put(new Gpu((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(ChipsetManufacturer) stacks[12].pop(),(Integer) stacks[13].pop()), (Integer) stacks[5].pop());
-				} else if(class_.startsWith("Monitor")) {
-					stock.put(new Monitor((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(MonitorType) stacks[22].pop(),(Integer) stacks[10].pop(),(String) stacks[23].pop(), (Port[]) stacks[24].pop(), (Backlight) stacks[15].pop()), (Integer) stacks[5].pop());
-				} else if(class_.startsWith("Keyboard")) {
+				} else if(class_.endsWith("Monitor")) {
+					String[] portsString = (String[]) stacks[24].pop();
+					String[] portString = Arrays.toString(portsString).replace("[","").replace("]","").split(",");
+					Port[] ports = new Port[portString.length];
+					
+					for(int j=0; j<ports.length; j++)
+						if(portString[j].toLowerCase().contains("hdmi"))
+							ports[j] = Port.HDMI;
+						else if(portString[j].toLowerCase().contains("dp"))
+							ports[j] = Port.DP;
+						else
+							ports[j] = Port.USBC;
+					
+					stock.put(new Monitor((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(MonitorType) stacks[22].pop(),(Double) stacks[10].pop(),(String) stacks[23].pop(), ports, (Backlight) stacks[25].pop()), (Integer) stacks[5].pop());
+				} else if(class_.endsWith("Keyboard")) {
 					stock.put(new Keyboard((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(Connection) stacks[21].pop()), (Integer) stacks[5].pop());
-				} else if(class_.startsWith("Mouse")) {
+				} else if(class_.endsWith("Mouse")) {
 					stock.put(new Mouse((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(Sensor) stacks[20].pop(),(Connection) stacks[21].pop()), (Integer) stacks[5].pop());
-				} else if(class_.startsWith("Printer")) {
+				} else if(class_.endsWith("Printer")) {
 					stock.put(new Printer((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(PrinterType) stacks[18].pop(),(Colors) stacks[19].pop()), (Integer) stacks[5].pop());
 				}
 			}
 			
 			sc.close();
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
@@ -370,7 +398,7 @@ public class Reader {
 						expectingCloseBracket = false;
 						break;
 					default:
-						if (!Utils.contains(keys, inp.split(" ")[0]))
+						if (Utils.contains(keys, inp.split(" ")[0]))
 							throw new RuntimeException("Unknown value: " + inp.split(" ")[0]);
 						break;
 				}

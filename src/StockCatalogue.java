@@ -74,7 +74,7 @@ public class StockCatalogue implements Catalogue {
         for(int i=0; i<stock.size(); i++) {
             Product product = (Product) stock.keySet().toArray()[i];
             buff.append(product.serialized());
-            buff.append("\n\t\tPIECES ").append(stock.get(product));
+            buff.append("\n\t\tPIECES ").append(stock.get(product)).append("\n\t}\n");
         }
 
         buff.append("\n}");

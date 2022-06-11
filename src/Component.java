@@ -6,8 +6,7 @@ public class Component extends Product {
     /**
      * discount for all the components
      */
-    protected static int discount; // stis prodiagrafes den anefere kapou to pos tha allazei to discount opote
-                                   // ipothetoume oti einai hardcoded
+    protected static int discount;
 
     /**
      * Action: initializes all the class attributes by calling

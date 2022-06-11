@@ -62,7 +62,7 @@ public class Monitor extends Peripheral {
     /**
      * the size of the monitor in inches
      */
-    private final int size;
+    private final double size;
     /**
      * the resolution of the monitor in format: "widthXheight"
      */
@@ -88,7 +88,7 @@ public class Monitor extends Peripheral {
      * @param resolution the resolution of the monitor (format: "widthXheight")
      * @param ports an array of ports that the monitor has
      */
-    public Monitor(String model, int releaseYear, String manufacturer, double price, MonitorType monitorType, int size, String resolution, Port[] ports, Backlight backlight) {
+    public Monitor(String model, int releaseYear, String manufacturer, double price, MonitorType monitorType, Double size, String resolution, Port[] ports, Backlight backlight) {
         super(model, releaseYear, manufacturer, price);
         this.monitorType = monitorType;
         this.size = size;
@@ -102,7 +102,7 @@ public class Monitor extends Peripheral {
      */
     @Override
     public String toString() {
-        return String.format("Monitor {\n\tCode: %d\n\tModel: %s\n\tRelease year: %d\n\tManufacturer: %s\n\tPrice: %f\n\tType: %s\n\tSize: %d\"\n\tResolution: %spx\n\tPorts: %s\n\t}", code, model, releaseYear, manufacturer, price, monitorType, size, resolution, Arrays.toString(ports));
+        return String.format("Monitor {\n\tCode: %d\n\tModel: %s\n\tRelease year: %d\n\tManufacturer: %s\n\tPrice: %f\n\tType: %s\n\tSize: %f\"\n\tResolution: %spx\n\tPorts: %s\n\tBacklight: %s\n\t}", code, model, releaseYear, manufacturer, price, monitorType, size, resolution, Arrays.toString(ports), backlight);
     }
 
     /**
@@ -110,6 +110,6 @@ public class Monitor extends Peripheral {
      */
     @Override
     public String serialized() {
-        return String.format("\tITEM\n\t{\n\t\tITEM_TYPE %s\n\t\tMODEL %s\n\t\tMODEL_YEAR %d\n\t\tMANUFACTURER %s\n\t\tPRICE %f\n\t\tMONITOR_TYPE %s\n\t\tSIZE %d\n\t\tRESOLUTION %s\n\t\tPORTS %s\n\t\tBACKLIGHT %s", this.getClass().getName().toLowerCase(), model, releaseYear, manufacturer, price, monitorType, size, resolution, Arrays.toString(ports), backlight);
+        return String.format("\tITEM\n\t{\n\t\tITEM_TYPE %s\n\t\tMODEL %s\n\t\tMODEL_YEAR %d\n\t\tMANUFACTURER %s\n\t\tPRICE %f\n\t\tMONITOR_TYPE %s\n\t\tSIZE %f\n\t\tRESOLUTION %s\n\t\tPORTS %s\n\t\tBACKLIGHT %s", this.getClass().getName().toLowerCase(), model, releaseYear, manufacturer, price, monitorType, size, resolution, Arrays.toString(ports), backlight);
     }
 }
