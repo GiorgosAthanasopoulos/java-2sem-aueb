@@ -25,28 +25,36 @@ public class Reader {
 		};
 	}
 	
+	@SuppressWarnings("all")
 	private static Catalogue readStockCatalogue(File stockCatalogue) {
+		// check file format valid
 		if(!valid(stockCatalogue, new String[]{"ITEM_TYPE", "MODEL", "MODEL_YEAR", "MANUFACTURER", "PRICE", "PIECES", "CLOCK", "CORES", "ONBOARD_GRAPHICS", "DDR", "SIZE", "FREQUENCY", "CHIPSET", "MEMORY", "SOCKET", "SATA_COUNT", "STORAGE_TYPE", "CAPACITY", "PRINTER_TYPE", "COLORS", "SENSOR", "CONNECTION", "MONITOR_TYPE", "RESOLUTION", "PORTS", "BACKLIGHT"}))
 			throw new RuntimeException("File format in: " + stockCatalogue.getName() + " is incorrect!Please fix the errors to continue");
 		
+		// stock map that will be used to create stock catalogue generated from file
 		Map<Product, Integer> stock = new HashMap<>();
 		String input, value, context = null, key;
 	
+		// stacks to hold product characteristics
 		Stack[] stacks = new Stack[26];
 		Boolean[] provided = new Boolean[26];
 		
+		//init arrays
 		for(int i=0; i<26; i++) {
 			stacks[i] = new Stack();
 			provided[i] = false;
 		}
 		
+		// fill stacks
 		try {
 			Scanner sc = new Scanner(stockCatalogue);
 			
 			while(sc.hasNextLine()) {
 				key = sc.nextLine().trim().strip().stripIndent().stripLeading().stripTrailing();
-				input = key.split(" ")[0].trim().strip().stripIndent().stripLeading().stripTrailing();
-				value = input.split(" ")[1].trim().strip().stripIndent().stripLeading().stripTrailing();
+				if(key.equals("ITEM_LIST") || key.equals("ITEM") || key.equals("{") || key.equals("}") || key.equals(" ") || key.equals(""))
+					continue;
+				input = key.split(" ")[0];
+				value = key.split(" ")[1];
 				
 				if(input.equals("ITEM_TYPE")) {
 					context = value;
@@ -98,7 +106,7 @@ public class Reader {
 					stacks[9].push(value.contains("3") ? Ddr.DDR3 : value.contains("4") ? Ddr.DDR4 : Ddr.DDR5);
 				} else if(input.equals("SIZE")) {
 					provided[10] = true;
-					stacks[10].push(Integer.parseInt(value));
+					stacks[10].push(Double.parseDouble(value));
 				} else if(input.equals("FREQUENCY")) {
 					provided[11] = true;
 					stacks[11].push(Double.parseDouble(value));
@@ -146,6 +154,7 @@ public class Reader {
 					stacks[25].push(value.contains("lcd") ? Backlight.LCD : Backlight.LED);
 				}
 				
+				// check important information provided
 				if(!provided[0] && !provided[1] && !provided[4]) {
 					System.out.println("Not enough information was given for a product to be added to the stock so it is ignored!");
 				
@@ -156,6 +165,7 @@ public class Reader {
 					continue;
 				}
 				
+				// check generic product attributes provided
 				if(!provided[2])
 					stacks[2].push(0);
 				if(!provided[3])
@@ -163,6 +173,7 @@ public class Reader {
 				if(!provided[5])
 					stacks[5].push(0);
 				
+				// check specific product attributes
 				switch (context) {
 					case "motherboard":
 						if(!provided[13])
@@ -245,6 +256,31 @@ public class Reader {
 					provided[i] = false;
 			}
 			
+			// generate products
+			for(int i=stacks[0].size()-1; i>=0; i--) {
+				String class_ = stacks[0].get(i).toString();
+				
+				if(class_.startsWith("Motherboard")) {
+					stock.put(new Motherboard((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(Socket) stacks[13].pop(),(Integer) stacks[14].pop(),(Integer) stacks[15].pop()), (Integer) stacks[5].pop());
+				} else if(class_.startsWith("Ram")) {
+					stock.put(new Ram((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(Ddr) stacks[9].pop(),(Integer) stacks[10].pop(),(Integer) stacks[11].pop()), (Integer) stacks[5].pop());
+				} else if(class_.startsWith("Cpu")) {
+					stock.put(new Cpu((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(Double) stacks[6].pop(),(Integer) stacks[7].pop(),(Boolean) stacks[8].pop()), (Integer) stacks[5].pop());
+				} else if(class_.startsWith("Hd")) {
+					stock.put(new Hd((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(StorageType) stacks[16].pop(),(Double) stacks[10].pop(),(Integer) stacks[17].pop()), (Integer) stacks[5].pop());
+				} else if(class_.startsWith("Gpu")) {
+					stock.put(new Gpu((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(ChipsetManufacturer) stacks[12].pop(),(Integer) stacks[13].pop()), (Integer) stacks[5].pop());
+				} else if(class_.startsWith("Monitor")) {
+					stock.put(new Monitor((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(MonitorType) stacks[22].pop(),(Integer) stacks[10].pop(),(String) stacks[23].pop(), (Port[]) stacks[24].pop(), (Backlight) stacks[15].pop()), (Integer) stacks[5].pop());
+				} else if(class_.startsWith("Keyboard")) {
+					stock.put(new Keyboard((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(Connection) stacks[21].pop()), (Integer) stacks[5].pop());
+				} else if(class_.startsWith("Mouse")) {
+					stock.put(new Mouse((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(Sensor) stacks[20].pop(),(Connection) stacks[21].pop()), (Integer) stacks[5].pop());
+				} else if(class_.startsWith("Printer")) {
+					stock.put(new Printer((String) stacks[1].pop(),(Integer) stacks[2].pop(),(String) stacks[3].pop(),(Double) stacks[4].pop(),(PrinterType) stacks[18].pop(),(Colors) stacks[19].pop()), (Integer) stacks[5].pop());
+				}
+			}
+			
 			sc.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -283,67 +319,72 @@ public class Reader {
 	
 	private static boolean valid(File file, String[] keys) {
 		int openBrackets = 0, closeBrackets = 0, line = 1;
-		boolean expectingOpenBracket = false, expectingCloseBracket = false, hadItemList = false;
+		boolean expectingOpenBracket = false, expectingCloseBracket = false, hadItemList = false, expectingItemListBracket = false;
 		
 		try {
 			Scanner sc = new Scanner(file);
-			String inp;
+			String inp, prev = "";
 			
 			while(sc.hasNextLine()) {
 				inp = sc.nextLine().trim().strip().stripIndent().stripLeading().stripTrailing();
 				
-				if(inp.equals(" ") || inp.equals(""))
-					continue;
-				else if(inp.equals("{"))
-					if(!expectingOpenBracket)
-						throw new RuntimeException("Didnt expect open bracket, file: " + file.getName() + ", line: " + line);
-					else {
-						openBrackets++;
-						expectingOpenBracket = false;
-						expectingCloseBracket = true;
-					}
-				else if(inp.equals("}"))
-					if(!expectingCloseBracket)
-						throw new RuntimeException("Didnt expect close bracket, file: " + file.getName() + ", line: " + line);
-					else {
-						closeBrackets++;
-						expectingCloseBracket = false;
-						expectingOpenBracket = false;
-					}
-				else if(inp.equals("ITEM_LIST"))
-					if(hadItemList)
-						throw new RuntimeException("Duplicate token ITEM_LIST, file: " + file.getName() + ", line: " + line);
-					else {
-						hadItemList = true;
+				switch (inp) {
+					case " ":
+					case "":
+						continue;
+					case "{":
+						if(prev.equals("ITEM_LIST"))
+							expectingItemListBracket = true;
+						if (!expectingOpenBracket)
+							throw new RuntimeException("Didnt expect open bracket, file: " + file.getName() + ", line: " + line);
+						else {
+							openBrackets++;
+							expectingOpenBracket = false;
+							expectingCloseBracket = true;
+						}
+						break;
+					case "}":
+						if (!expectingCloseBracket) {
+							if (expectingItemListBracket) {
+								expectingItemListBracket = false;
+								closeBrackets++;
+							} else {
+								throw new RuntimeException("Didnt expect close bracket, file: " + file.getName() + ", line: " + line);
+							}
+						} else {
+							closeBrackets++;
+							expectingCloseBracket = false;
+						}
+						break;
+					case "ITEM_LIST":
+						if (hadItemList)
+							throw new RuntimeException("Duplicate token ITEM_LIST, file: " + file.getName() + ", line: " + line);
+						else {
+							hadItemList = true;
+							expectingOpenBracket = true;
+							expectingCloseBracket = false;
+						}
+						break;
+					case "ITEM":
 						expectingOpenBracket = true;
 						expectingCloseBracket = false;
-					}
-                else if(inp.equals("ITEM")) {
-					expectingOpenBracket = true;
-					expectingCloseBracket = false;
-				}
-				else {
-					if(!contains(keys, inp.split(" ")[0]))
-						throw new RuntimeException("Unknown value: " + inp.split(" ")[0]);
+						break;
+					default:
+						if (!Utils.contains(keys, inp.split(" ")[0]))
+							throw new RuntimeException("Unknown value: " + inp.split(" ")[0]);
+						break;
 				}
 					
                 line++;
+				prev = inp;
 			}
 			
 			sc.close();
-			return !expectingCloseBracket && !expectingOpenBracket && hadItemList && closeBrackets == openBrackets;
+			return !expectingCloseBracket && !expectingOpenBracket && hadItemList && closeBrackets == openBrackets && !expectingItemListBracket;
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		return false;
-	}
-	
-	private static boolean contains(String[] keys, String value) {
-		for(String key : keys)
-			if(key.equals(value))
-				return true;
 		
 		return false;
 	}
