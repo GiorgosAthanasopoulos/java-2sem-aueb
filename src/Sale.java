@@ -25,6 +25,13 @@ public class Sale extends Transaction {
         productType = Component.class.isAssignableFrom(product.getClass()) ? "component" : "peripheral";
         originalPrice = product.price;
     }
+    
+    public Sale(int code, Product product, String name, String number, String saleDate, double price) {
+        super(code, product, name, number, saleDate, price);
+        
+        productType = Component.class.isAssignableFrom(product.getClass()) ? "component" : "peripheral";
+        originalPrice = product.price;
+    }
 
     /**
      * @return the string representation of the sale class
@@ -39,6 +46,6 @@ public class Sale extends Transaction {
      */
     @Override
     public String serialized() {
-        return String.format("\tSALE\n\t{\n\t\tITEM_TYPE %s\n\t\tMODEL %s\n\t\tNAME %s\n\t\tNUMBER %s\n\t\tSALE_DATE %s\n\t\tPRICE %f\n\t}\n", product.getClass().getName().toLowerCase(), product.preview(), name, number, date, price);
+        return String.format("\tSALE\n\t{\n\t\tCODE %d\n\t\tITEM_TYPE %s\n\t\tMODEL %s\n\t\tNAME %s\n\t\tNUMBER %s\n\t\tSALE_DATE %s\n\t\tPRICE %f\n\t}\n", code, product.getClass().getName().toLowerCase(), product.preview(), name, number, date, price);
     }
 }

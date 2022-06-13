@@ -57,6 +57,15 @@ public class Transaction implements Serializable {
         this.date = Utils.getDate();
         this.price = price;
     }
+    
+    public Transaction(int code, Product product, String name, String number, String saleDate, double price) {
+        this.code = code;
+        this.product = product;
+        this.name = name;
+        this.number = number;
+        this.date = saleDate;
+        this.price = price;
+    }
 
     /**
      * @return string representation of serialized class

@@ -1,18 +1,4 @@
 ORDER_LIST
 {
-    ORDER
-    {
-        CODE 0
-        ITEM_TYPE motherboard
-        MODEL 0
-        NAME george athans
-        NUMBER +300987654321
-        DATE  31-05-2022
-        PRICE 95
-        DELIVERY DATE 31-05-2022
-    }
-    ORDER
-    {
 
-    }
 }

@@ -47,9 +47,20 @@ public class Order extends Transaction {
                 product.getPrice() - (Component.class.isAssignableFrom(product.getClass())
                         ? Component.getDiscount() * product.getPrice() / 100
                         : Peripheral.getDiscount() * product.getPrice() / 100));
+        
         this.deliveryDate = deliveryDate;
         this.deliveryStatus = DeliveryStatus.TOBEDELIVERED;
 
+        productType = Component.class.isAssignableFrom(product.getClass()) ? "component" : "peripheral";
+        originalPrice = product.price;
+    }
+    
+    public Order(int code, Product product, String name, String number, String date, Double price, String deliveryDate, DeliveryStatus deliveryStatus) {
+        super(code, product, name, number, date, price);
+        
+        this.deliveryDate = deliveryDate;
+        this.deliveryStatus = deliveryStatus;
+        
         productType = Component.class.isAssignableFrom(product.getClass()) ? "component" : "peripheral";
         originalPrice = product.price;
     }
@@ -79,6 +90,6 @@ public class Order extends Transaction {
      */
     @Override
     public String serialized() {
-        return String.format("\tORDER\n\t{\n\t\tITEM_TYPE %s\n\t\tMODEL %s\n\t\tNAME %s\n\t\tNUMBER %s\n\t\tDATE %s\n\t\tPRICE %f\n\t\tDELIVERY_DATE %s\n\t\tDELIVERY_STATUS %s\n\t}\n", product.getClass().getName().toLowerCase(), product.preview(), name, number, date, price, deliveryDate, deliveryStatus);
+        return String.format("\tORDER\n\t{\n\t\tCODE %d\n\t\tITEM_TYPE %s\n\t\tMODEL %s\n\t\tNAME %s\n\t\tNUMBER %s\n\t\tDATE %s\n\t\tPRICE %f\n\t\tDELIVERY_DATE %s\n\t\tDELIVERY_STATUS %s\n\t}\n", code, product.getClass().getName().toLowerCase(), product.preview(), name, number, date, price, deliveryDate, deliveryStatus);
     }
 }
