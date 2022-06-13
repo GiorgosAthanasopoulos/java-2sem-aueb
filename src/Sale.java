@@ -26,6 +26,15 @@ public class Sale extends Transaction {
         originalPrice = product.price;
     }
     
+    /**
+     * Action: initializes all the class attributes by calling super constuctor
+     * @param code the unique code identifier of the sale
+     * @param product the product that is sold
+     * @param name the name of the person this product was sold to
+     * @param number the number of the person this product was sold to
+     * @param saleDate the date this product was sold to the person
+     * @param price the price that the person had to pay, after discount, when buying the product
+     */
     public Sale(int code, Product product, String name, String number, String saleDate, double price) {
         super(code, product, name, number, saleDate, price);
         

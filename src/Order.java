@@ -55,6 +55,17 @@ public class Order extends Transaction {
         originalPrice = product.price;
     }
     
+    /**
+     * Action: initialized all the class attributes by calling super constructor
+     * @param code the unique code identifier of the order
+     * @param product the product that is ordered
+     * @param name the name of the person that ordered
+     * @param number the number of the person that ordered
+     * @param date the date that the person ordered
+     * @param price the price that the person has to pay after discount
+     * @param deliveryDate the delivery date of the package-order
+     * @param deliveryStatus the delivery status of the package-order
+     */
     public Order(int code, Product product, String name, String number, String date, Double price, String deliveryDate, DeliveryStatus deliveryStatus) {
         super(code, product, name, number, date, price);
         

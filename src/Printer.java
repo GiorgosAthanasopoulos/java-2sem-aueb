@@ -63,7 +63,10 @@ public class Printer extends Peripheral {
    public String toString() {
        return String.format("Printer {\n\tCode: %d\n\tModel: %s\n\tRelease year: %d\n\tManufacturer: %s\n\tPrice: %f\n\tType: %s\n\tColors: %s\n\t}", code, model, releaseYear, manufacturer, price, printerType, colors);
    }
-
+    
+    /**
+     * @return string representation of serialized class
+     */
    @Override
     public String serialized() {
        return String.format("\tITEM\n\t{\n\t\tITEM_TYPE %s\n\t\tMODEL %s\n\t\tMODEL_YEAR %d\n\t\tMANUFACTURER %s\n\t\tPRICE %f\n\t\tPRINTER_TYPE %s\n\t\tCOLORS %s", this.getClass().getName().toLowerCase(), model, releaseYear, manufacturer, price, printerType, colors);

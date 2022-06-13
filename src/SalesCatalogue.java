@@ -18,7 +18,10 @@ public class SalesCatalogue implements Catalogue {
     public SalesCatalogue(List<Sale> sales) {
         soldProducts.addAll(sales);
     }
-
+    
+    /**
+     * empty constructor
+     */
     public SalesCatalogue() {
 
     }

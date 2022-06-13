@@ -58,6 +58,15 @@ public class Transaction implements Serializable {
         this.price = price;
     }
     
+    /**
+     * Action: initializes all the class attributes by calling super constructor
+     * @param code the unique code identifier of the transaction
+     * @param product the product included in the transaction
+     * @param name the name of the person involved in the transaction
+     * @param number the number of the person involved in the transaction
+     * @param saleDate the date this transaction was finished
+     * @param price the price the person had to pay in order to finish the transaction
+     */
     public Transaction(int code, Product product, String name, String number, String saleDate, double price) {
         this.code = code;
         this.product = product;

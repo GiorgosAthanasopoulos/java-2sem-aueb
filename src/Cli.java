@@ -62,7 +62,13 @@ public class Cli {
         }
         saveCatalogues(stockCatalogue, ordersCatalogue, salesCatalogue);
     }
-
+    
+    /**
+     * A function to save all the catalogues to the filesystem
+     * @param stockCatalogue the stock catalogue
+     * @param ordersCatalogue the orders catalogue
+     * @param salesCatalogue the sales catalogue
+     */
     static void saveCatalogues(StockCatalogue stockCatalogue, OrdersCatalogue ordersCatalogue, SalesCatalogue salesCatalogue) {
         Writer.writeCatalogues(List.of(stockCatalogue, ordersCatalogue, salesCatalogue));
     }
