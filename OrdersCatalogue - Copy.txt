@@ -12,8 +12,4 @@ ORDER_LIST
         DELIVERY_DATE 31-05-2022
         DELIVERY_STATUS TOBEDELIVERED
     }
-    ORDER
-    {
-
-    }
 }
